@@ -6,5 +6,4 @@ urlpatterns = [
     path('', include('base.urls')),
     path('room/', include('base.urls')),
     path('create-room/', include('base.urls')),
-
 ]
