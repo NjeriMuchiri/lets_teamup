@@ -4,18 +4,14 @@ from .forms import RoomForm
 
 
 #Create your views here.
-def home(request):
+def homePage(request):
     rooms = Room.objects.all()
     topics  = Topic.objects.all()
     context = {'rooms': rooms, 'topics': topics}
     return render(request, 'base/home.html', context)
 
 def rooms(request, pk):
-    rooms = [
-        {'id': 1, 'name': 'let us learn Python!'},
-        {'id': 2, 'name': 'Design with me'},
-        {'id': 3, 'name': 'Frontend developers'},
-    ]
+    
     room = Room.objects.get(id=pk)
     context = {'room': room}
     return render(request, 'base/room.html', context)
@@ -26,7 +22,7 @@ def createRoom(request):
         form = RoomForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("home")
+            return redirect("home_page")
     context = {'form': form }
     return render(request, 'base/room_form.html', context)
 
@@ -38,7 +34,7 @@ def updateRoom(request, pk):
         form = RoomForm(request.POST, instance=room)
         if form.is_valid():
             form.save()
-            return redirect("home")
+            return redirect("home_page")
 
     context = {'form': form}
     return render(request, 'base/room_form.html', context)
@@ -47,5 +43,5 @@ def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
     if request.method == 'POST':
         room.delete()
-        return redirect("home")
+        return redirect("home_page")
     return render(request, 'base/delete.html', {'obj':room})
