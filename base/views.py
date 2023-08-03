@@ -5,7 +5,7 @@ from .forms import RoomForm
 
 #Create your views here.
 def homePage(request):
-    rooms = Room.objects.all()
+    rooms = Room.objects.filter()
     topics  = Topic.objects.all()
     context = {'rooms': rooms, 'topics': topics}
     return render(request, 'base/home.html', context)
